@@ -1,0 +1,33 @@
+pipeline {
+    agent {
+        label 'worker'
+    }
+    stages {
+        stage ('Build docker image'){
+            steps {
+                sh 'aws ecr-public get-login-password --region us-east-1 | docker login --username AWS --password-stdin public.ecr.aws/f2c4t9z4'
+                sh 'cd /home/ubuntu/nodeapp && sudo docker build . -t public.ecr.aws/f2c4t9z4/nodeapp:${BUILD_NUMBER}'
+                sh 'docker push public.ecr.aws/f2c4t9z4/nodeapp:${BUILD_NUMBER}'
+                }
+            }
+        stage('Deploy on ec2'){
+            steps {
+                script {
+                    sh'''
+        ECR_IMAGE="public.ecr.aws/f2c4t9z4/nodeapp:${BUILD_NUMBER}"
+        sudo docker run -itd -p 81:8081 ${ECR_IMAGE}'''}
+            }
+        }
+        stage('Adding New Stage') {
+            steps {
+                sh 'echo adding a new stage'
+            }
+        }
+
+        }
+    options {
+    buildDiscarder(logRotator(numToKeepStr: '10'))
+    disableConcurrentBuilds()
+    timeout(time: 1, unit: 'HOURS')
+  }
+}
