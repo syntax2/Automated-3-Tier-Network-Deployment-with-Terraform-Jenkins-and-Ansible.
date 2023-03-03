@@ -1,0 +1,7 @@
+[defaults]
+host_key_checking = False
+ansible_ssh_user = ubuntu
+remote_user = ubuntu
+private_key_file = /home/ubuntu/linux.pem
+
+#add this file  to your /etc/ansible/ansible.cnf
