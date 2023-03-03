@@ -5,3 +5,5 @@ remote_user = ubuntu
 private_key_file = /home/ubuntu/linux.pem
 
 #add this file  to your /etc/ansible/ansible.cnf
+# install boto3 using pip install boto3
+# create an iam role with policy attached as EC2Readonlyaccess and attach this role to the bastion ec2 instance.
