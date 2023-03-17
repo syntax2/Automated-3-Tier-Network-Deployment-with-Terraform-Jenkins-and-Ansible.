@@ -22,7 +22,7 @@ Jenkins
 **Getting Started**
 
 *Clone the repository:*
-git clone https://github.com/your_username/3-tier-infra.git
+git clone https://github.com/syntax2/Automated-3-Tier-Network-Deployment-with-Terraform-Jenkins-and-Ansible..git
 
 *Navigate to the project directory:*
 cd terraform
